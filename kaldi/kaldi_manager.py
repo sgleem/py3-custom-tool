@@ -16,7 +16,7 @@ Role)
 Process)
 """
 import numpy as np
-import kaldi_io
+from . import kaldi_io
 from . import kaldi_command as kc
 
 class KaldiReadManager:
@@ -62,6 +62,9 @@ class KaldiReadManager:
         return result
 
 def read_feat(feat_path, cmvn_path="", u2s_path="", delta=True):
+    """
+    copy-feats -> apply-cmvn -> add-deltas
+    """
     km = KaldiReadManager()
     km.set_command("copy-feats", feat_path)
     if cmvn_path is not "" and u2s_path is not "":
@@ -72,6 +75,9 @@ def read_feat(feat_path, cmvn_path="", u2s_path="", delta=True):
     return feat_dict
 
 def read_ali(ali_path, mdl_path):
+    """
+    gunzip -> ali-to-pdf
+    """
     km = KaldiReadManager()
     km.set_command("gunzip", ali_path)
     km.set_command("ali-to-pdf", mdl_path)
