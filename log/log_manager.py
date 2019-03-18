@@ -25,7 +25,7 @@ class LogManager:
         for stat_type in self.log_book.keys():
             self.log_book[stat_type] = []
     def save_to_history(self):
-        """ save current stat to history """
+        """ save current stat to history, and initialize all stat """
         for stat_type in self.log_book.keys():
             stat = self.get_stat(stat_type)
             self.history[stat_type].append(stat)
